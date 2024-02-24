@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CurrentWeekView: View {
     @StateObject var viewModel = ShiftsViewModel()
-    
+    @AppStorage("selectedEmployee") private var selectedEmployee = "Abdullah Altun" // Geselecteerde werknemer uit de instellingen
+
     var body: some View {
         let sortedShifts = viewModel.shiftsCurrentWeek.sorted(by: { $0.key < $1.key })
         
@@ -26,7 +27,7 @@ struct CurrentWeekView: View {
                 }), id: \.self) { shift in
                     VStack(alignment: .leading) {
                         HStack {
-                            if shift.name == "Abdullah Altun" {
+                            if shift.name == selectedEmployee {
                                 Image(systemName: "person.fill")
                                     .foregroundColor(.blue)
                             }
@@ -45,7 +46,7 @@ struct CurrentWeekView: View {
         let navigation = NavigationView {
             list
                 .onAppear() {
-                    viewModel.getShiftsCurrentWeek()
+                    viewModel.getShiftsCurrentWeek(for: selectedEmployee)
                 }
         }
         .navigationViewStyle(StackNavigationViewStyle()) // Added to ensure consistent navigation style

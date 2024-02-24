@@ -5,41 +5,47 @@
 //  Created by Abdullah on 17/02/2024.
 //
 
+// SettingsView.swift
+
 import SwiftUI
 
-
 struct SettingsView: View {
-    @State private var showNotifications = true
-    @State private var soundEnabled = true
-    @State private var vibrationEnabled = true
-    @State private var fontSize: Double = 16.0
+    @AppStorage("selectedEmployee") private var defaultEmployee: String = "Abdullah Altun"
+    @State private var employeeNames: [String] = []
+    @StateObject var viewModel = ShiftsViewModel()
 
     var body: some View {
-        Form {
-            Section("General") {
-                Toggle("Show Notifications", isOn: $showNotifications)
-                Picker("Font Size", selection: $fontSize) {
-                    Text("Small").tag(14.0)
-                    Text("Medium").tag(16.0)
-                    Text("Large").tag(18.0)
+        NavigationView {
+            Form {
+                Section("General") {
+                    Text("Display Name: \(defaultEmployee)")
+                    TextField("Enter your name", text: $defaultEmployee)
+                }
+
+                Section(header: Text("Select Employee")) {
+                    Picker(selection: $defaultEmployee, label: Text("Employee")) {
+                        ForEach(employeeNames, id: \.self) { employee in
+                            Text(employee)
+                                .tag(employee) // Set tag to employee name
+                        }
+                    }
                 }
             }
-
-            Section("Sounds & Vibrations") {
-                Toggle("Sound", isOn: $soundEnabled)
-                Toggle("Vibration", isOn: $vibrationEnabled)
+            .onAppear {
+                // Fetch employee names
+                viewModel.getEmployeeNames { names in
+                    self.employeeNames = names
+                }
             }
-
-            // More sections and settings...
-
-            Button("Save") {
-                // Handle saving settings
-            }
+            .navigationTitle("Settings")
         }
-        .navigationTitle("Settings")
     }
 }
 
-#Preview {
-    SettingsView()
+
+
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView()
+    }
 }

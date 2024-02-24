@@ -12,7 +12,7 @@ struct Refreshable: ViewModifier {
     @Binding var isRefreshing: Bool
     @Binding var successMessage: String?
     @ObservedObject var viewModel = ShiftsViewModel()
-
+    
     func body(content: Content) -> some View {
         content
             .overlay(
@@ -30,12 +30,12 @@ struct Refreshable: ViewModifier {
                             .animation(.easeInOut(duration: 3), value: 0.5) // Voer een animatie uit om te vervagen
                     }
                 }
-                .onReceive(Just(successMessage)) { message in
-                    // Reset de successMessage na 2 seconden
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        successMessage = nil
+                    .onReceive(Just(successMessage)) { message in
+                        // Reset de successMessage na 2 seconden
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            successMessage = nil
+                        }
                     }
-                }
             )
     }
 }
@@ -49,11 +49,11 @@ extension View {
 struct ActivityIndicator: UIViewRepresentable {
     @Binding var isAnimating: Bool
     let style: UIActivityIndicatorView.Style
-
+    
     func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
         return UIActivityIndicatorView(style: style)
     }
-
+    
     func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
         isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
     }
@@ -63,14 +63,17 @@ struct GetAllShiftsView: View {
     @State private var isRefreshing = false
     @ObservedObject var viewModel = ShiftsViewModel()
     @State private var successMessage: String? = nil
+    @AppStorage("selectedEmployee") private var selectedEmployee = "Abdullah Altun"
+
 
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
-                    Text("My Shifts")
+                    Text(selectedEmployee) // Display selected employee name
                         .font(.largeTitle)
                         .fontWeight(.bold)
+                        .multilineTextAlignment(.leading)
                         .padding()
                     Spacer()
                     Button(action: {
@@ -99,11 +102,9 @@ struct GetAllShiftsView: View {
                 List {
                     ForEach(viewModel.shifts, id: \.self) { shift in
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(shift.name)
+                            Text(shift.workday.formattedHeader())
                                 .font(.title2)
                                 .fontWeight(.bold)
-                            Text(shift.workday.formattedHeader())
-                                .foregroundColor(.gray)
                             Text("\(shift.start_time) - \(shift.end_time)")
                                 .foregroundColor(.gray)
                         }
@@ -112,7 +113,7 @@ struct GetAllShiftsView: View {
                 }
                 .refreshable {
                     isRefreshing = true
-                    viewModel.updateRoosterCurrentWeek { result in
+                    viewModel.getShiftsByEmployee(employeeName: selectedEmployee) { result in // Call API with selected employee name
                         switch result {
                         case .success:
                             DispatchQueue.main.async {
@@ -126,7 +127,16 @@ struct GetAllShiftsView: View {
                 }
                 .listStyle(InsetGroupedListStyle())
                 .onAppear {
-                    viewModel.getShifts()
+                    viewModel.getShiftsByEmployee(employeeName: selectedEmployee) { result in // Call API with selected employee name
+                        switch result {
+                        case .success(let shifts):
+                            DispatchQueue.main.async {
+                                self.viewModel.shifts = shifts // Update shifts
+                            }
+                        case .failure(let error):
+                            print("Error fetching shifts: \(error)")
+                        }
+                    }
                 }
                 .refreshable(isRefreshing: $isRefreshing, successMessage: $successMessage, viewModel: viewModel)
             }
@@ -134,6 +144,19 @@ struct GetAllShiftsView: View {
             .background(Color(.systemGroupedBackground))
             .cornerRadius(20)
             .shadow(radius: 5)
+            .navigationBarTitle("All Shifts") // Set navigation bar title
+            .onChange(of: selectedEmployee) {
+                viewModel.getShiftsByEmployee(employeeName: selectedEmployee) { result in // Call API with new selected employee name
+                    switch result {
+                    case .success(let shifts):
+                        DispatchQueue.main.async {
+                            self.viewModel.shifts = shifts // Update shifts
+                        }
+                    case .failure(let error):
+                        print("Error fetching shifts: \(error)")
+                    }
+                }
+            }
         }
     }
 }

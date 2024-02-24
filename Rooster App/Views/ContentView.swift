@@ -3,25 +3,25 @@ import SwiftUI
 
 
 struct ContentView: View {
+    
     var body: some View {
         
-        TabView {
-            GetAllShiftsView()
-                .tabItem{
-                    Label("My Shifts", systemImage: "house")
-                }
-            ShiftsView()
-                .tabItem{
-                    Label("All Shifts", systemImage: "calendar")
-                }
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gear")
-                
-                }
+            TabView {
+                GetAllShiftsView()
+                    .tabItem{
+                        Label("My Shifts", systemImage: "house")
+                    }
+                ShiftsView()
+                    .tabItem{
+                        Label("All Shifts", systemImage: "calendar")
+                    }
+                SettingsView()
+                    .tabItem {
+                        Label("Settings", systemImage: "gear")
+                        
+                    }
+            }
         }
-        
-    }
 }
 
 

@@ -89,13 +89,13 @@
 		B8954FEC2B8293F9006355EF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B8954FE12B816F23006355EF /* SettingsView.swift */,
-				B8954FDF2B816B3C006355EF /* ShiftsView.swift */,
 				B84308AB2B37B87600AB7D10 /* ContentView.swift */,
+				B8954FDF2B816B3C006355EF /* ShiftsView.swift */,
 				B8954FE92B817F6A006355EF /* GetAllShiftsView.swift */,
 				B8954FE32B817908006355EF /* ShiftsCurrentWeekView.swift */,
 				B8954FE52B817D33006355EF /* ShiftsSecondWeekView.swift */,
 				B8954FE72B817D84006355EF /* ShiftsThirdWeekView.swift */,
+				B8954FE12B816F23006355EF /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

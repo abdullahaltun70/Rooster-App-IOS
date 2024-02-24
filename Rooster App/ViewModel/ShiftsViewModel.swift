@@ -35,14 +35,39 @@ class ShiftsViewModel: ObservableObject {
         }.resume()
     }
 
+    func getShiftsByEmployee(employeeName: String, completion: @escaping (Result<[Shift], Error>) -> Void) {
+        guard let url = URL(string: "https://api.aaltun.nl/get-shifts-by-employee/\(employeeName)") else {
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data else {
+                let error = NSError(domain: "DataError", code: 0, userInfo: nil)
+                completion(.failure(error))
+                return
+            }
+
+            do {
+                let shifts = try JSONDecoder().decode([Shift].self, from: data)
+                completion(.success(shifts))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
+    }
+
     
-    
-    func getShiftsCurrentWeek() {
+    func getShiftsCurrentWeek(for employeeName: String) { // Voeg parameter 'for employeeName' toe
         DispatchQueue.main.async {
             self.isLoading = true
         }
         
-        guard let url = URL(string: "https://api.aaltun.nl/get-shifts-current-week") else { return }
+        guard let url = URL(string: "https://api.aaltun.nl/get-shifts-current-week/\(employeeName)") else { return }
         
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else { return }
@@ -57,13 +82,13 @@ class ShiftsViewModel: ObservableObject {
             }
         }.resume()
     }
-    
-    func getShiftsNextWeek() {
+
+    func getShiftsNextWeek(for employeeName: String) { // Voeg parameter 'for employeeName' toe
         DispatchQueue.main.async {
             self.isLoading = true
         }
         
-        guard let url = URL(string: "https://api.aaltun.nl/get-shifts-next-week") else { return }
+        guard let url = URL(string: "https://api.aaltun.nl/get-shifts-next-week/\(employeeName)") else { return }
         
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else { return }
@@ -77,15 +102,14 @@ class ShiftsViewModel: ObservableObject {
                 print("Error decoding data: \(error)")
             }
         }.resume()
-    
     }
     
-    func getShiftsThirdWeek() {
+    func getShiftsThirdWeek(for employeeName: String) { // Voeg parameter 'for employeeName' toe
         DispatchQueue.main.async {
             self.isLoading = true
         }
         
-        guard let url = URL(string: "https://api.aaltun.nl/get-shifts-third-week") else { return }
+        guard let url = URL(string: "https://api.aaltun.nl/get-shifts-third-week/\(employeeName)") else { return }
         
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else { return }
@@ -100,8 +124,7 @@ class ShiftsViewModel: ObservableObject {
             }
         }.resume()
     }
-
-
+    
     
     func updateRoosterCurrentWeek(completion: @escaping (Result<Void, Error>) -> Void) {
         isLoading = true // Zet isLoading op true tijdens het bijwerken van het rooster
@@ -126,12 +149,30 @@ class ShiftsViewModel: ObservableObject {
 
             if (200..<300).contains(httpResponse.statusCode) {
                     DispatchQueue.main.async {
-                        self.getShiftsCurrentWeek() // Call on main thread
+                        self.getShifts() // Call on main thread
                         completion(.success(()))
                     }
             } else {
                 let error = NSError(domain: "HTTPError", code: httpResponse.statusCode, userInfo: nil)
                 completion(.failure(error))
+            }
+        }.resume()
+    }
+    
+    // Functie om alle employee namen op te halen
+    func getEmployeeNames(completion: @escaping ([String]) -> Void) {
+        guard let url = URL(string: "https://api.aaltun.nl/get-employee-names") else { return }
+
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data else { return }
+
+            do {
+                let employeeNames = try JSONDecoder().decode([String].self, from: data)
+                DispatchQueue.main.async {
+                    completion(employeeNames)
+                }
+            } catch {
+                print("Error decoding employee names: \(error)")
             }
         }.resume()
     }
