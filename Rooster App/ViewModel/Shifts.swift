@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Shift: Codable, Hashable {
+public struct Shift: Codable, Hashable {
     let name: String
     let workday: String
     let start_time: String   // Let op de overeenkomst met de JSON-sleutel "start_time"

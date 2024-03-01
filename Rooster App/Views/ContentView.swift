@@ -2,18 +2,18 @@
 import SwiftUI
 
 
-struct ContentView: View {
+public struct ContentView: View {
     
-    var body: some View {
+    public var body: some View {
         
             TabView {
                 GetAllShiftsView()
                     .tabItem{
-                        Label("My Shifts", systemImage: "house")
+                        Label("Mijn Diensten", systemImage: "house")
                     }
                 ShiftsView()
                     .tabItem{
-                        Label("All Shifts", systemImage: "calendar")
+                        Label("Alle Diensten", systemImage: "calendar")
                     }
                 SettingsView()
                     .tabItem {

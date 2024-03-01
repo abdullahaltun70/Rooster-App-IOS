@@ -8,9 +8,9 @@
 import WidgetKit
 import SwiftUI
 
-@main
-struct next_shift_widgetBundle: WidgetBundle {
-    var body: some Widget {
-        next_shift_widget()
+public struct next_shift_widgetBundle: WidgetBundle {
+    public init() {}
+    public var body: some Widget {
+        ShiftWidget()
     }
 }

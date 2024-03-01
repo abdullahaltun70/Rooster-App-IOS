@@ -7,14 +7,41 @@
 
 import SwiftUI
 
-struct CurrentWeekView: View {
-    @StateObject var viewModel = ShiftsViewModel()
+public struct CurrentWeekView: View {
+    @ObservedObject var viewModel = ShiftsViewModel()
     @AppStorage("selectedEmployee") private var selectedEmployee = "Abdullah Altun" // Geselecteerde werknemer uit de instellingen
 
-    var body: some View {
+    public var body: some View {
         let sortedShifts = viewModel.shiftsCurrentWeek.sorted(by: { $0.key < $1.key })
         
         let list = List(sortedShifts, id: \.key) { date, shifts in
+            
+                // return every json object as list item from sortedShifts.first?.value.first ordered by time
+            ForEach(shifts.sorted(by: { shift1, shift2 in
+                let formatter = DateFormatter()
+                formatter.dateFormat = "HH:mm"
+                if let startTime1 = formatter.date(from: shift1.start_time),
+                   let startTime2 = formatter.date(from: shift2.start_time) {
+                    return startTime1 < startTime2
+                }
+                return false
+            }), id: \.self) { shift in
+                VStack(alignment: .leading) {
+                    HStack {
+                        if shift.name == selectedEmployee {
+                            Image(systemName: "person.fill")
+                                .foregroundColor(.blue)
+                        }
+                        Text("\(shift.name)").font(.headline)
+                    }
+                    HStack {
+                        Text(shift.start_time)
+                        Text("-")
+                        Text(shift.end_time)
+                    }
+                }
+            }
+            
             Section(header: Text(date.formattedHeader()).bold().font(.title2)) {
                 ForEach(shifts.sorted(by: { shift1, shift2 in
                     let formatter = DateFormatter()

@@ -19,7 +19,37 @@
 		B8954FE62B817D33006355EF /* ShiftsSecondWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8954FE52B817D33006355EF /* ShiftsSecondWeekView.swift */; };
 		B8954FE82B817D84006355EF /* ShiftsThirdWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8954FE72B817D84006355EF /* ShiftsThirdWeekView.swift */; };
 		B8954FEA2B817F6A006355EF /* GetAllShiftsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8954FE92B817F6A006355EF /* GetAllShiftsView.swift */; };
+		B8F42D142B8E2F64008E6B1F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F42CF62B8E2810008E6B1F /* WidgetKit.framework */; };
+		B8F42D152B8E2F64008E6B1F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F42CF82B8E2810008E6B1F /* SwiftUI.framework */; };
+		B8F42D182B8E2F64008E6B1F /* next_shift_widgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F42D172B8E2F64008E6B1F /* next_shift_widgetBundle.swift */; };
+		B8F42D1A2B8E2F64008E6B1F /* next_shift_widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F42D192B8E2F64008E6B1F /* next_shift_widget.swift */; };
+		B8F42D1C2B8E2F66008E6B1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8F42D1B2B8E2F66008E6B1F /* Assets.xcassets */; };
+		B8F42D202B8E2F66008E6B1F /* next-shift-widgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B8F42D132B8E2F64008E6B1F /* next-shift-widgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B8F42D1E2B8E2F66008E6B1F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B843089E2B37B87600AB7D10 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B8F42D122B8E2F64008E6B1F;
+			remoteInfo = "next-shift-widgetExtension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B8F42D082B8E2812008E6B1F /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B8F42D202B8E2F66008E6B1F /* next-shift-widgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B84308A62B37B87600AB7D10 /* Rooster App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rooster App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +66,13 @@
 		B8954FE52B817D33006355EF /* ShiftsSecondWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsSecondWeekView.swift; sourceTree = "<group>"; };
 		B8954FE72B817D84006355EF /* ShiftsThirdWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsThirdWeekView.swift; sourceTree = "<group>"; };
 		B8954FE92B817F6A006355EF /* GetAllShiftsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllShiftsView.swift; sourceTree = "<group>"; };
+		B8F42CF62B8E2810008E6B1F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		B8F42CF82B8E2810008E6B1F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		B8F42D132B8E2F64008E6B1F /* next-shift-widgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "next-shift-widgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8F42D172B8E2F64008E6B1F /* next_shift_widgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = next_shift_widgetBundle.swift; sourceTree = "<group>"; };
+		B8F42D192B8E2F64008E6B1F /* next_shift_widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = next_shift_widget.swift; sourceTree = "<group>"; };
+		B8F42D1B2B8E2F66008E6B1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B8F42D1D2B8E2F66008E6B1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +83,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B8F42D102B8E2F64008E6B1F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8F42D152B8E2F64008E6B1F /* SwiftUI.framework in Frameworks */,
+				B8F42D142B8E2F64008E6B1F /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -53,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				B84308A82B37B87600AB7D10 /* Rooster App */,
+				B8F42D162B8E2F64008E6B1F /* next-shift-widget */,
+				B8F42CF52B8E2810008E6B1F /* Frameworks */,
 				B84308A72B37B87600AB7D10 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				B84308A62B37B87600AB7D10 /* Rooster App.app */,
+				B8F42D132B8E2F64008E6B1F /* next-shift-widgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,6 +158,26 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		B8F42CF52B8E2810008E6B1F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B8F42CF62B8E2810008E6B1F /* WidgetKit.framework */,
+				B8F42CF82B8E2810008E6B1F /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B8F42D162B8E2F64008E6B1F /* next-shift-widget */ = {
+			isa = PBXGroup;
+			children = (
+				B8F42D172B8E2F64008E6B1F /* next_shift_widgetBundle.swift */,
+				B8F42D192B8E2F64008E6B1F /* next_shift_widget.swift */,
+				B8F42D1B2B8E2F66008E6B1F /* Assets.xcassets */,
+				B8F42D1D2B8E2F66008E6B1F /* Info.plist */,
+			);
+			path = "next-shift-widget";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,15 +188,34 @@
 				B84308A22B37B87600AB7D10 /* Sources */,
 				B84308A32B37B87600AB7D10 /* Frameworks */,
 				B84308A42B37B87600AB7D10 /* Resources */,
+				B8F42D082B8E2812008E6B1F /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B8F42D1F2B8E2F66008E6B1F /* PBXTargetDependency */,
 			);
 			name = "Rooster App";
 			productName = "Rooster App";
 			productReference = B84308A62B37B87600AB7D10 /* Rooster App.app */;
 			productType = "com.apple.product-type.application";
+		};
+		B8F42D122B8E2F64008E6B1F /* next-shift-widgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8F42D212B8E2F66008E6B1F /* Build configuration list for PBXNativeTarget "next-shift-widgetExtension" */;
+			buildPhases = (
+				B8F42D0F2B8E2F64008E6B1F /* Sources */,
+				B8F42D102B8E2F64008E6B1F /* Frameworks */,
+				B8F42D112B8E2F64008E6B1F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "next-shift-widgetExtension";
+			productName = "next-shift-widgetExtension";
+			productReference = B8F42D132B8E2F64008E6B1F /* next-shift-widgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -136,11 +224,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1510;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					B84308A52B37B87600AB7D10 = {
 						CreatedOnToolsVersion = 15.1;
+					};
+					B8F42D122B8E2F64008E6B1F = {
+						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
@@ -158,6 +249,7 @@
 			projectRoot = "";
 			targets = (
 				B84308A52B37B87600AB7D10 /* Rooster App */,
+				B8F42D122B8E2F64008E6B1F /* next-shift-widgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -169,6 +261,14 @@
 			files = (
 				B84308B12B37B87800AB7D10 /* Preview Assets.xcassets in Resources */,
 				B84308AE2B37B87800AB7D10 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8F42D112B8E2F64008E6B1F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8F42D1C2B8E2F66008E6B1F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,7 +292,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B8F42D0F2B8E2F64008E6B1F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8F42D182B8E2F64008E6B1F /* next_shift_widgetBundle.swift in Sources */,
+				B8F42D1A2B8E2F64008E6B1F /* next_shift_widget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B8F42D1F2B8E2F66008E6B1F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B8F42D122B8E2F64008E6B1F /* next-shift-widgetExtension */;
+			targetProxy = B8F42D1E2B8E2F66008E6B1F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B84308B22B37B87800AB7D10 /* Debug */ = {
@@ -317,8 +434,10 @@
 		B84308B52B37B87800AB7D10 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Rooster App/Preview Content\"";
@@ -338,6 +457,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "altun.Rooster-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -347,8 +467,10 @@
 		B84308B62B37B87800AB7D10 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Rooster App/Preview Content\"";
@@ -368,6 +490,61 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "altun.Rooster-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B8F42D222B8E2F66008E6B1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZF2TQF5Y2P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "next-shift-widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "next-shift-widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "altun.Rooster-App.next-shift-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B8F42D232B8E2F66008E6B1F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZF2TQF5Y2P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "next-shift-widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "next-shift-widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "altun.Rooster-App.next-shift-widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -391,6 +568,15 @@
 			buildConfigurations = (
 				B84308B52B37B87800AB7D10 /* Debug */,
 				B84308B62B37B87800AB7D10 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B8F42D212B8E2F66008E6B1F /* Build configuration list for PBXNativeTarget "next-shift-widgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8F42D222B8E2F66008E6B1F /* Debug */,
+				B8F42D232B8E2F66008E6B1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

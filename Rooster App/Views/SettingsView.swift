@@ -9,21 +9,20 @@
 
 import SwiftUI
 
-struct SettingsView: View {
-    @AppStorage("selectedEmployee") private var defaultEmployee: String = "Abdullah Altun"
+public struct SettingsView: View {
+    @AppStorage("selectedEmployee") private var selectedEmployee: String = "Abdullah Altun"
     @State private var employeeNames: [String] = []
     @StateObject var viewModel = ShiftsViewModel()
 
-    var body: some View {
+    public var body: some View {
         NavigationView {
             Form {
-                Section("General") {
-                    Text("Display Name: \(defaultEmployee)")
-                    TextField("Enter your name", text: $defaultEmployee)
+                Section("Medewerker") {
+                    Text(selectedEmployee)
                 }
 
-                Section(header: Text("Select Employee")) {
-                    Picker(selection: $defaultEmployee, label: Text("Employee")) {
+                Section(header: Text("Selecteer Medewerker")) {
+                    Picker(selection: $selectedEmployee, label: Text("Medewerker")) {
                         ForEach(employeeNames, id: \.self) { employee in
                             Text(employee)
                                 .tag(employee) // Set tag to employee name
@@ -36,6 +35,7 @@ struct SettingsView: View {
                 viewModel.getEmployeeNames { names in
                     self.employeeNames = names
                 }
+                UserDefaults.standard.set(selectedEmployee, forKey: "selectedEmployee")
             }
             .navigationTitle("Settings")
         }

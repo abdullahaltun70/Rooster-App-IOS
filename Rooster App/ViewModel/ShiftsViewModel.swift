@@ -7,12 +7,13 @@
 
 import Foundation
 
-class ShiftsViewModel: ObservableObject {
+
+public class ShiftsViewModel: ObservableObject {
+    public init() {}
     @Published var shifts: [Shift] = []
     @Published var shiftsCurrentWeek: [String: [Shift]] = [:]
     @Published var shiftsNextWeek: [String: [Shift]] = [:]
     @Published var shiftsThirdWeek: [String: [Shift]] = [:]
-
     @Published var isLoading = false // Voeg een isLoading property toe
     
     func getShifts() {
@@ -62,7 +63,7 @@ class ShiftsViewModel: ObservableObject {
     }
 
     
-    func getShiftsCurrentWeek(for employeeName: String) { // Voeg parameter 'for employeeName' toe
+    public func getShiftsCurrentWeek(for employeeName: String) { // Voeg parameter 'for employeeName' toe
         DispatchQueue.main.async {
             self.isLoading = true
         }

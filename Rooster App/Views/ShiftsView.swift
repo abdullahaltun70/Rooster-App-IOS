@@ -9,39 +9,33 @@ import SwiftUI
 import Combine
 
 
-struct ShiftsView: View {
+public struct ShiftsView: View {
     @State private var selectedTab = 0
     @State private var isRefreshing = false
     @State private var successMessage: String? = nil
     @ObservedObject var viewModel = ShiftsViewModel()
     
-    var body: some View {
-        VStack {
+    public var body: some View {
+        VStack  {
             // Picker voor tabbladen
             Picker(selection: $selectedTab, label: Text("Selecteer een tab")) {
-                Text("Current Week").tag(0)
-                Text("Next Week").tag(1)
-                Text("Third Week").tag(2)
+                Text("Huidige Week").tag(0)
+                Text("Volgende Week").tag(1)
+                Text("Derde Week").tag(2)
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
             
-            // TabView met verschillende weergaven
-            TabView(selection: $selectedTab) {
+            
+            // show view based on picker selection
+            if selectedTab == 0 {
                 CurrentWeekView()
-                    .tag(0)
-                
+            } else if selectedTab == 1 {
                 SecondWeekView()
-                    .tag(1)
-                
+            } else {
                 ThirdWeekView()
-                    .tag(2)
             }
-        }
-        .padding()
-        .background(Color(.systemGroupedBackground))
-        .cornerRadius(20)
-        .shadow(radius: 5)
+        }.background(Color(.systemGray6))
     }
 }
 

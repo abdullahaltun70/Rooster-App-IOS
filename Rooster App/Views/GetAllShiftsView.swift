@@ -8,12 +8,12 @@
 import Combine
 import SwiftUI
 
-struct Refreshable: ViewModifier {
+public struct Refreshable: ViewModifier {
     @Binding var isRefreshing: Bool
     @Binding var successMessage: String?
     @ObservedObject var viewModel = ShiftsViewModel()
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content
             .overlay(
                 ActivityIndicator(isAnimating: $isRefreshing, style: .large)
@@ -23,12 +23,19 @@ struct Refreshable: ViewModifier {
             .overlay(
                 Group {
                     if successMessage != nil {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.green)
-                            .font(.system(size: 50))
-                            .transition(.opacity) // Voeg een overgang toe voor het vervagen
-                            .animation(.easeInOut(duration: 3), value: 0.5) // Voer een animatie uit om te vervagen
-                    }
+                        // Laat een vinkje zien als het rooster is bijgewerkt op een kaart met translucent achtergrond
+                        ZStack {
+                            Color.black
+                                .cornerRadius(10)
+                                .frame(width: 150, height: 150)
+                                .shadow(radius: 5)
+                            
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                                .font(.system(size: 50))
+                                .transition(.opacity) // Voeg een overgang toe voor het vervagen
+                                .animation(.easeInOut(duration: 5), value: 1) // Voer een animatie uit om te vervagen
+                        }}
                 }
                     .onReceive(Just(successMessage)) { message in
                         // Reset de successMessage na 2 seconden
@@ -64,64 +71,79 @@ struct GetAllShiftsView: View {
     @ObservedObject var viewModel = ShiftsViewModel()
     @State private var successMessage: String? = nil
     @AppStorage("selectedEmployee") private var selectedEmployee = "Abdullah Altun"
-
-
+    
+    
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
-                    Text(selectedEmployee) // Display selected employee name
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.leading)
-                        .padding()
-                    Spacer()
-                    Button(action: {
+                List {
+                    Section {
+                        HStack {
+                            Text(selectedEmployee.components(separatedBy: " ").first ?? "") // Display selected employee name
+                                .font(.title2).bold()
+                            Spacer()
+                            Button(action: {
+                                isRefreshing = true
+                                viewModel.updateRoosterCurrentWeek { result in
+                                    switch result {
+                                    case .success:
+                                        DispatchQueue.main.async {
+                                            isRefreshing = false
+                                            successMessage = "Rooster bijgewerkt!"
+                                            print("Rooster bijgewerkt!")
+                                        }
+                                    case .failure(let error):
+                                        print("Error updating rooster: \(error)")
+                                    }
+                                }
+                            }) {
+                                Image(systemName: "arrow.clockwise.circle")
+                                    .font(.title)
+                                    .rotationEffect(.degrees(isRefreshing ? 360 : 0))
+                                    .animation(isRefreshing ? Animation.linear(duration: 1.0).repeatForever(autoreverses: false) : .default, value: isRefreshing)
+                                    .padding()
+                                
+                            }.disabled(isRefreshing)
+                        }
+                    }
+                    
+                    Section(header: Text("Eerstvolgende dienst")) {
+                        // first item in list
+                        if let shift = viewModel.shifts.first {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(shift.workday.formattedHeader())
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                Text("\(shift.start_time) - \(shift.end_time)")
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
+                    Section(header: Text("Diensten")) {
+                        ForEach(viewModel.shifts, id: \.self) { shift in
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(shift.workday.formattedHeader())
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                Text("\(shift.start_time) - \(shift.end_time)")
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
+                }
+                .refreshable {
+                    if !isRefreshing {
                         isRefreshing = true
-                        viewModel.updateRoosterCurrentWeek { result in
+                        viewModel.getShiftsByEmployee(employeeName: selectedEmployee) { result in // Call API with selected employee name
                             switch result {
                             case .success:
                                 DispatchQueue.main.async {
                                     isRefreshing = false
                                     successMessage = "Rooster bijgewerkt!"
-                                    print("Rooster bijgewerkt!")
                                 }
                             case .failure(let error):
                                 print("Error updating rooster: \(error)")
                             }
-                        }
-                    }) {
-                        Image(systemName: "arrow.clockwise.circle")
-                            .font(.title)
-                            .rotationEffect(.degrees(isRefreshing ? 360 : 0))
-                            .animation(isRefreshing ? Animation.linear(duration: 1.0).repeatForever(autoreverses: false) : .default, value: isRefreshing)
-                            .padding()
-                    }
-                }
-
-                List {
-                    ForEach(viewModel.shifts, id: \.self) { shift in
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(shift.workday.formattedHeader())
-                                .font(.title2)
-                                .fontWeight(.bold)
-                            Text("\(shift.start_time) - \(shift.end_time)")
-                                .foregroundColor(.gray)
-                        }
-                        .padding(.vertical, 8)
-                    }
-                }
-                .refreshable {
-                    isRefreshing = true
-                    viewModel.getShiftsByEmployee(employeeName: selectedEmployee) { result in // Call API with selected employee name
-                        switch result {
-                        case .success:
-                            DispatchQueue.main.async {
-                                isRefreshing = false
-                                successMessage = "Rooster bijgewerkt!"
-                            }
-                        case .failure(let error):
-                            print("Error updating rooster: \(error)")
                         }
                     }
                 }
@@ -140,11 +162,7 @@ struct GetAllShiftsView: View {
                 }
                 .refreshable(isRefreshing: $isRefreshing, successMessage: $successMessage, viewModel: viewModel)
             }
-            .padding()
-            .background(Color(.systemGroupedBackground))
-            .cornerRadius(20)
-            .shadow(radius: 5)
-            .navigationBarTitle("All Shifts") // Set navigation bar title
+            .navigationBarTitle("Alle Diensten") // Set navigation bar title
             .onChange(of: selectedEmployee) {
                 viewModel.getShiftsByEmployee(employeeName: selectedEmployee) { result in // Call API with new selected employee name
                     switch result {

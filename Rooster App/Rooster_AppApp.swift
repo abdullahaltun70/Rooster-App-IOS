@@ -8,8 +8,9 @@
 import SwiftUI
 
 @main
-struct Rooster_AppApp: App {
-    var body: some Scene {
+public struct Rooster_AppApp: App {
+    public init() {}
+    public var body: some Scene {
         WindowGroup {
             ContentView()
         }

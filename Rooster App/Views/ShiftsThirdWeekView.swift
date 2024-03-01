@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct ThirdWeekView: View {
+public struct ThirdWeekView: View {
     @StateObject var viewModel = ShiftsViewModel()
     @AppStorage("selectedEmployee") private var selectedEmployee = "Abdullah Altun" // Geselecteerde werknemer uit de instellingen
     
-    var body: some View {
+    public var body: some View {
         let sortedShifts = viewModel.shiftsThirdWeek.sorted(by: { $0.key < $1.key })
         
         let list = List(sortedShifts, id: \.key) { date, shifts in
